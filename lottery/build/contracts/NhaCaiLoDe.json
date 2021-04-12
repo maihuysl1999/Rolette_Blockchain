@@ -1,29 +1,29 @@
 {
   "contractName": "NhaCaiLoDe",
   "abi": [],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/home/ubuntu/dapp/Rolette_Blockchain/lottery/contracts/NhaCaiLoDe.sol\":\"NhaCaiLoDe\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/ubuntu/dapp/Rolette_Blockchain/lottery/contracts/NhaCaiLoDe.sol\":{\"keccak256\":\"0xb2b32a74052f5e59694fabcf4743c8428449833adf494ffd38aa63a875166838\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://e13d08cc9ee489ad9b779e76caf19594d1e50d1d4450034371364f64d311979c\",\"dweb:/ipfs/QmcH1nmaXKQ7ePSYnFWid9SeE3UUpV1m3BsDVzmzNtbono\"]}},\"version\":1}",
-  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122022d59de4f4cc95d23f173c226fc4e444cae2e7983da90656f99fcb095d5b2f0864736f6c63430008000033",
-  "deployedBytecode": "0x6080604052600080fdfea264697066735822122022d59de4f4cc95d23f173c226fc4e444cae2e7983da90656f99fcb095d5b2f0864736f6c63430008000033",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/D/roulette/lottery/contracts/NhaCaiLoDe.sol\":\"NhaCaiLoDe\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/D/roulette/lottery/contracts/NhaCaiLoDe.sol\":{\"keccak256\":\"0xbe9bbddba0f8ccb0cbecd9127840eab8b19656a3ded1e3a89b9d3a784a7bc8c0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://7f4afb226730ef9e40b598028ac8ce512a59e5259a1989b707d3a3079de08a6b\",\"dweb:/ipfs/QmSpGMHLXwV3rypTejHo3WZ7jNJNH7yz326mctHXvxo9BK\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220573748d4780dd45c1592af68b17f355d29a976d45e154d03a8ac4541a2dd728764736f6c63430008000033",
+  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220573748d4780dd45c1592af68b17f355d29a976d45e154d03a8ac4541a2dd728764736f6c63430008000033",
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [],
-  "sourceMap": "58:28:5:-:0;;;;;;;;;;;;;;;;;;;",
-  "deployedSourceMap": "58:28:5:-:0;;;;;",
-  "source": "// SPDX-License-Identifier: MIT\n\npragma solidity ^0.8.0;\n\ncontract NhaCaiLoDe {\n    \n}\n",
-  "sourcePath": "/home/ubuntu/dapp/Rolette_Blockchain/lottery/contracts/NhaCaiLoDe.sol",
+  "sourceMap": "62:30:4:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "62:30:4:-:0;;;;;",
+  "source": "// SPDX-License-Identifier: MIT\r\n\r\npragma solidity ^0.8.0;\r\n\r\ncontract NhaCaiLoDe {\r\n    \r\n}\r\n",
+  "sourcePath": "D:/roulette/lottery/contracts/NhaCaiLoDe.sol",
   "ast": {
-    "absolutePath": "/home/ubuntu/dapp/Rolette_Blockchain/lottery/contracts/NhaCaiLoDe.sol",
+    "absolutePath": "/D/roulette/lottery/contracts/NhaCaiLoDe.sol",
     "exportedSymbols": {
       "NhaCaiLoDe": [
-        894
+        887
       ]
     },
-    "id": 895,
+    "id": 888,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 893,
+        "id": 886,
         "literals": [
           "solidity",
           "^",
@@ -31,7 +31,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "33:23:5"
+        "src": "35:23:4"
       },
       {
         "abstract": false,
@@ -39,32 +39,32 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 894,
+        "id": 887,
         "linearizedBaseContracts": [
-          894
+          887
         ],
         "name": "NhaCaiLoDe",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 895,
-        "src": "58:28:5"
+        "scope": 888,
+        "src": "62:30:4"
       }
     ],
-    "src": "33:54:5"
+    "src": "35:59:4"
   },
   "legacyAST": {
-    "absolutePath": "/home/ubuntu/dapp/Rolette_Blockchain/lottery/contracts/NhaCaiLoDe.sol",
+    "absolutePath": "/D/roulette/lottery/contracts/NhaCaiLoDe.sol",
     "exportedSymbols": {
       "NhaCaiLoDe": [
-        894
+        887
       ]
     },
-    "id": 895,
+    "id": 888,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 893,
+        "id": 886,
         "literals": [
           "solidity",
           "^",
@@ -72,7 +72,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "33:23:5"
+        "src": "35:23:4"
       },
       {
         "abstract": false,
@@ -80,18 +80,18 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 894,
+        "id": 887,
         "linearizedBaseContracts": [
-          894
+          887
         ],
         "name": "NhaCaiLoDe",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 895,
-        "src": "58:28:5"
+        "scope": 888,
+        "src": "62:30:4"
       }
     ],
-    "src": "33:54:5"
+    "src": "35:59:4"
   },
   "compiler": {
     "name": "solc",
@@ -99,7 +99,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-04-12T13:31:32.225Z",
+  "updatedAt": "2021-04-12T15:31:39.756Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

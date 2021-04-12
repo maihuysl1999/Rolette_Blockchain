@@ -15,21 +15,21 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"checkResult\",\"outputs\":[{\"internalType\":\"int256\",\"name\":\"\",\"type\":\"int256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/home/ubuntu/dapp/Rolette_Blockchain/lottery/contracts/NhaCaiBongDa.sol\":\"NhaCaiBongDa\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/ubuntu/dapp/Rolette_Blockchain/lottery/contracts/NhaCaiBongDa.sol\":{\"keccak256\":\"0xd5b70d1b973dd026605864ac5142ff410c7802b7324057eec8b011099f778c02\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://fa40e1a71e838b0fba41b4fe98a6d101a886c2a47d22b8eb20380ab72b1ce485\",\"dweb:/ipfs/QmfSMMRQWH2ZvzuYdjpydX9HLDjBqBs6c7Dwt7Ma9nZ7QP\"]}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b5060b28061001f6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c8063a21d942f14602d575b600080fd5b60336047565b604051603e91906059565b60405180910390f35b600090565b6053816072565b82525050565b6000602082019050606c6000830184604c565b92915050565b600081905091905056fea26469706673582212204276df988f21d36c2f0e3f37da000d28f5bd343037b84ddc712641632a693a2464736f6c63430008000033",
-  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060285760003560e01c8063a21d942f14602d575b600080fd5b60336047565b604051603e91906059565b60405180910390f35b600090565b6053816072565b82525050565b6000602082019050606c6000830184604c565b92915050565b600081905091905056fea26469706673582212204276df988f21d36c2f0e3f37da000d28f5bd343037b84ddc712641632a693a2464736f6c63430008000033",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"checkResult\",\"outputs\":[{\"internalType\":\"int256\",\"name\":\"\",\"type\":\"int256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/D/roulette/lottery/contracts/NhaCaiBongDa.sol\":\"NhaCaiBongDa\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/D/roulette/lottery/contracts/NhaCaiBongDa.sol\":{\"keccak256\":\"0x83053b016b835216b63c3803b97ed8e243f2130c72eeef737c63f8a8a13974f7\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://d66f83b4b321ceb65fe129128e70da2f3babec31ed497af5759f47b653699778\",\"dweb:/ipfs/QmRzokVX5buV3NEwQxX4BNiy7zdhYxmgcZVqhiZaieCWkF\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5060b28061001f6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c8063a21d942f14602d575b600080fd5b60336047565b604051603e91906059565b60405180910390f35b600090565b6053816072565b82525050565b6000602082019050606c6000830184604c565b92915050565b600081905091905056fea26469706673582212207a4c0deb440fa4894a13f2db62ac818101e406553a602a611c6cb273844f4c3b64736f6c63430008000033",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060285760003560e01c8063a21d942f14602d575b600080fd5b60336047565b604051603e91906059565b60405180910390f35b600090565b6053816072565b82525050565b6000602082019050606c6000830184604c565b92915050565b600081905091905056fea26469706673582212207a4c0deb440fa4894a13f2db62ac818101e406553a602a611c6cb273844f4c3b64736f6c63430008000033",
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [
     {
       "ast": {
         "nodeType": "YulBlock",
-        "src": "0:431:10",
+        "src": "0:431:12",
         "statements": [
           {
             "body": {
               "nodeType": "YulBlock",
-              "src": "70:52:10",
+              "src": "70:52:12",
               "statements": [
                 {
                   "expression": {
@@ -37,35 +37,35 @@
                       {
                         "name": "pos",
                         "nodeType": "YulIdentifier",
-                        "src": "87:3:10"
+                        "src": "87:3:12"
                       },
                       {
                         "arguments": [
                           {
                             "name": "value",
                             "nodeType": "YulIdentifier",
-                            "src": "109:5:10"
+                            "src": "109:5:12"
                           }
                         ],
                         "functionName": {
                           "name": "cleanup_t_int256",
                           "nodeType": "YulIdentifier",
-                          "src": "92:16:10"
+                          "src": "92:16:12"
                         },
                         "nodeType": "YulFunctionCall",
-                        "src": "92:23:10"
+                        "src": "92:23:12"
                       }
                     ],
                     "functionName": {
                       "name": "mstore",
                       "nodeType": "YulIdentifier",
-                      "src": "80:6:10"
+                      "src": "80:6:12"
                     },
                     "nodeType": "YulFunctionCall",
-                    "src": "80:36:10"
+                    "src": "80:36:12"
                   },
                   "nodeType": "YulExpressionStatement",
-                  "src": "80:36:10"
+                  "src": "80:36:12"
                 }
               ]
             },
@@ -75,37 +75,37 @@
               {
                 "name": "value",
                 "nodeType": "YulTypedName",
-                "src": "58:5:10",
+                "src": "58:5:12",
                 "type": ""
               },
               {
                 "name": "pos",
                 "nodeType": "YulTypedName",
-                "src": "65:3:10",
+                "src": "65:3:12",
                 "type": ""
               }
             ],
-            "src": "7:115:10"
+            "src": "7:115:12"
           },
           {
             "body": {
               "nodeType": "YulBlock",
-              "src": "224:122:10",
+              "src": "224:122:12",
               "statements": [
                 {
                   "nodeType": "YulAssignment",
-                  "src": "234:26:10",
+                  "src": "234:26:12",
                   "value": {
                     "arguments": [
                       {
                         "name": "headStart",
                         "nodeType": "YulIdentifier",
-                        "src": "246:9:10"
+                        "src": "246:9:12"
                       },
                       {
                         "kind": "number",
                         "nodeType": "YulLiteral",
-                        "src": "257:2:10",
+                        "src": "257:2:12",
                         "type": "",
                         "value": "32"
                       }
@@ -113,16 +113,16 @@
                     "functionName": {
                       "name": "add",
                       "nodeType": "YulIdentifier",
-                      "src": "242:3:10"
+                      "src": "242:3:12"
                     },
                     "nodeType": "YulFunctionCall",
-                    "src": "242:18:10"
+                    "src": "242:18:12"
                   },
                   "variableNames": [
                     {
                       "name": "tail",
                       "nodeType": "YulIdentifier",
-                      "src": "234:4:10"
+                      "src": "234:4:12"
                     }
                   ]
                 },
@@ -132,19 +132,19 @@
                       {
                         "name": "value0",
                         "nodeType": "YulIdentifier",
-                        "src": "312:6:10"
+                        "src": "312:6:12"
                       },
                       {
                         "arguments": [
                           {
                             "name": "headStart",
                             "nodeType": "YulIdentifier",
-                            "src": "325:9:10"
+                            "src": "325:9:12"
                           },
                           {
                             "kind": "number",
                             "nodeType": "YulLiteral",
-                            "src": "336:1:10",
+                            "src": "336:1:12",
                             "type": "",
                             "value": "0"
                           }
@@ -152,22 +152,22 @@
                         "functionName": {
                           "name": "add",
                           "nodeType": "YulIdentifier",
-                          "src": "321:3:10"
+                          "src": "321:3:12"
                         },
                         "nodeType": "YulFunctionCall",
-                        "src": "321:17:10"
+                        "src": "321:17:12"
                       }
                     ],
                     "functionName": {
                       "name": "abi_encode_t_int256_to_t_int256_fromStack",
                       "nodeType": "YulIdentifier",
-                      "src": "270:41:10"
+                      "src": "270:41:12"
                     },
                     "nodeType": "YulFunctionCall",
-                    "src": "270:69:10"
+                    "src": "270:69:12"
                   },
                   "nodeType": "YulExpressionStatement",
-                  "src": "270:69:10"
+                  "src": "270:69:12"
                 }
               ]
             },
@@ -177,13 +177,13 @@
               {
                 "name": "headStart",
                 "nodeType": "YulTypedName",
-                "src": "196:9:10",
+                "src": "196:9:12",
                 "type": ""
               },
               {
                 "name": "value0",
                 "nodeType": "YulTypedName",
-                "src": "208:6:10",
+                "src": "208:6:12",
                 "type": ""
               }
             ],
@@ -191,30 +191,30 @@
               {
                 "name": "tail",
                 "nodeType": "YulTypedName",
-                "src": "219:4:10",
+                "src": "219:4:12",
                 "type": ""
               }
             ],
-            "src": "128:218:10"
+            "src": "128:218:12"
           },
           {
             "body": {
               "nodeType": "YulBlock",
-              "src": "396:32:10",
+              "src": "396:32:12",
               "statements": [
                 {
                   "nodeType": "YulAssignment",
-                  "src": "406:16:10",
+                  "src": "406:16:12",
                   "value": {
                     "name": "value",
                     "nodeType": "YulIdentifier",
-                    "src": "417:5:10"
+                    "src": "417:5:12"
                   },
                   "variableNames": [
                     {
                       "name": "cleaned",
                       "nodeType": "YulIdentifier",
-                      "src": "406:7:10"
+                      "src": "406:7:12"
                     }
                   ]
                 }
@@ -226,7 +226,7 @@
               {
                 "name": "value",
                 "nodeType": "YulTypedName",
-                "src": "378:5:10",
+                "src": "378:5:12",
                 "type": ""
               }
             ],
@@ -234,37 +234,37 @@
               {
                 "name": "cleaned",
                 "nodeType": "YulTypedName",
-                "src": "388:7:10",
+                "src": "388:7:12",
                 "type": ""
               }
             ],
-            "src": "352:76:10"
+            "src": "352:76:12"
           }
         ]
       },
       "contents": "{\n\n    function abi_encode_t_int256_to_t_int256_fromStack(value, pos) {\n        mstore(pos, cleanup_t_int256(value))\n    }\n\n    function abi_encode_tuple_t_int256__to_t_int256__fromStack_reversed(headStart , value0) -> tail {\n        tail := add(headStart, 32)\n\n        abi_encode_t_int256_to_t_int256_fromStack(value0,  add(headStart, 0))\n\n    }\n\n    function cleanup_t_int256(value) -> cleaned {\n        cleaned := value\n    }\n\n}\n",
-      "id": 10,
+      "id": 12,
       "language": "Yul",
       "name": "#utility.yul"
     }
   ],
-  "sourceMap": "58:85:4:-:0;;;;;;;;;;;;;;;;;;;",
-  "deployedSourceMap": "58:85:4:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;85:56;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;;131:3;85:56;:::o;7:115:10:-;92:23;109:5;92:23;:::i;:::-;87:3;80:36;70:52;;:::o;128:218::-;;257:2;246:9;242:18;234:26;;270:69;336:1;325:9;321:17;312:6;270:69;:::i;:::-;224:122;;;;:::o;352:76::-;;417:5;406:16;;396:32;;;:::o",
-  "source": "// SPDX-License-Identifier: MIT\n\npragma solidity ^0.8.0;\n\ncontract NhaCaiBongDa {\n\n  function checkResult() external view returns (int){\n\n  }\n}",
-  "sourcePath": "/home/ubuntu/dapp/Rolette_Blockchain/lottery/contracts/NhaCaiBongDa.sol",
+  "sourceMap": "62:90:3:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "62:90:3:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;91:58;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;;137:3;91:58;:::o;7:115:12:-;92:23;109:5;92:23;:::i;:::-;87:3;80:36;70:52;;:::o;128:218::-;;257:2;246:9;242:18;234:26;;270:69;336:1;325:9;321:17;312:6;270:69;:::i;:::-;224:122;;;;:::o;352:76::-;;417:5;406:16;;396:32;;;:::o",
+  "source": "// SPDX-License-Identifier: MIT\r\n\r\npragma solidity ^0.8.0;\r\n\r\ncontract NhaCaiBongDa {\r\n\r\n  function checkResult() external view returns (int){\r\n\r\n  }\r\n}",
+  "sourcePath": "D:/roulette/lottery/contracts/NhaCaiBongDa.sol",
   "ast": {
-    "absolutePath": "/home/ubuntu/dapp/Rolette_Blockchain/lottery/contracts/NhaCaiBongDa.sol",
+    "absolutePath": "/D/roulette/lottery/contracts/NhaCaiBongDa.sol",
     "exportedSymbols": {
       "NhaCaiBongDa": [
-        891
+        884
       ]
     },
-    "id": 892,
+    "id": 885,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 884,
+        "id": 877,
         "literals": [
           "solidity",
           "^",
@@ -272,7 +272,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "33:23:4"
+        "src": "35:23:3"
       },
       {
         "abstract": false,
@@ -280,45 +280,45 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 891,
+        "id": 884,
         "linearizedBaseContracts": [
-          891
+          884
         ],
         "name": "NhaCaiBongDa",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 889,
+              "id": 882,
               "nodeType": "Block",
-              "src": "135:6:4",
+              "src": "141:8:3",
               "statements": []
             },
             "functionSelector": "a21d942f",
-            "id": 890,
+            "id": 883,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "checkResult",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 885,
+              "id": 878,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "105:2:4"
+              "src": "111:2:3"
             },
             "returnParameters": {
-              "id": 888,
+              "id": 881,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 887,
+                  "id": 880,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 890,
-                  "src": "131:3:4",
+                  "scope": 883,
+                  "src": "137:3:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -326,10 +326,10 @@
                     "typeString": "int256"
                   },
                   "typeName": {
-                    "id": 886,
+                    "id": 879,
                     "name": "int",
                     "nodeType": "ElementaryTypeName",
-                    "src": "131:3:4",
+                    "src": "137:3:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_int256",
                       "typeString": "int256"
@@ -338,34 +338,34 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "130:5:4"
+              "src": "136:5:3"
             },
-            "scope": 891,
-            "src": "85:56:4",
+            "scope": 884,
+            "src": "91:58:3",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 892,
-        "src": "58:85:4"
+        "scope": 885,
+        "src": "62:90:3"
       }
     ],
-    "src": "33:110:4"
+    "src": "35:117:3"
   },
   "legacyAST": {
-    "absolutePath": "/home/ubuntu/dapp/Rolette_Blockchain/lottery/contracts/NhaCaiBongDa.sol",
+    "absolutePath": "/D/roulette/lottery/contracts/NhaCaiBongDa.sol",
     "exportedSymbols": {
       "NhaCaiBongDa": [
-        891
+        884
       ]
     },
-    "id": 892,
+    "id": 885,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 884,
+        "id": 877,
         "literals": [
           "solidity",
           "^",
@@ -373,7 +373,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "33:23:4"
+        "src": "35:23:3"
       },
       {
         "abstract": false,
@@ -381,45 +381,45 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 891,
+        "id": 884,
         "linearizedBaseContracts": [
-          891
+          884
         ],
         "name": "NhaCaiBongDa",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 889,
+              "id": 882,
               "nodeType": "Block",
-              "src": "135:6:4",
+              "src": "141:8:3",
               "statements": []
             },
             "functionSelector": "a21d942f",
-            "id": 890,
+            "id": 883,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "checkResult",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 885,
+              "id": 878,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "105:2:4"
+              "src": "111:2:3"
             },
             "returnParameters": {
-              "id": 888,
+              "id": 881,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 887,
+                  "id": 880,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 890,
-                  "src": "131:3:4",
+                  "scope": 883,
+                  "src": "137:3:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -427,10 +427,10 @@
                     "typeString": "int256"
                   },
                   "typeName": {
-                    "id": 886,
+                    "id": 879,
                     "name": "int",
                     "nodeType": "ElementaryTypeName",
-                    "src": "131:3:4",
+                    "src": "137:3:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_int256",
                       "typeString": "int256"
@@ -439,20 +439,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "130:5:4"
+              "src": "136:5:3"
             },
-            "scope": 891,
-            "src": "85:56:4",
+            "scope": 884,
+            "src": "91:58:3",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 892,
-        "src": "58:85:4"
+        "scope": 885,
+        "src": "62:90:3"
       }
     ],
-    "src": "33:110:4"
+    "src": "35:117:3"
   },
   "compiler": {
     "name": "solc",
@@ -460,7 +460,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-04-12T13:31:32.223Z",
+  "updatedAt": "2021-04-12T15:31:39.754Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

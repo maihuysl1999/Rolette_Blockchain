@@ -13,7 +13,9 @@ abstract contract checkTicketBuyInterface {
 }
 
 contract BoNhaCai is CustomERC20 {
-    constructor() CustomERC20("Chip", "CHI") {}
+    uint public constant TOKEN_PRICE = 1e16; // 0.01 ether
+    constructor() CustomERC20("Chip", "CHI") {
+    }
 
     struct Ticket {
         uint256 value;
@@ -37,6 +39,8 @@ contract BoNhaCai is CustomERC20 {
 
     mapping(uint256 => address) private _ticketOwners;
 
+    event NewRound(address owner, address resultContract, uint256 endTime, uint balance);
+
     function createRound(
         address _resultContract,
         uint256 _endTime,
@@ -49,6 +53,7 @@ contract BoNhaCai is CustomERC20 {
         uint roundId = rounds.length-1;
         _roundOwners[roundId] = msg.sender;
         _transferToRound(msg.sender, roundId, _balance);
+        emit NewRound(msg.sender, _resultContract, _endTime, _balance);
     }
 
     function buyTicket(
@@ -110,5 +115,18 @@ contract BoNhaCai is CustomERC20 {
 
     function _ticketExists(uint256 _roundId) internal view returns (bool) {
         return _ticketOwners[_roundId] != address(0);
+    }
+
+    function buyToken() public payable{
+        require(msg.value >= TOKEN_PRICE);
+        _balances[msg.sender] += (msg.value/TOKEN_PRICE);
+    }
+
+    fallback () external payable{
+        buyToken();
+    }
+
+    receive() external payable {
+        buyToken();
     }
 }
