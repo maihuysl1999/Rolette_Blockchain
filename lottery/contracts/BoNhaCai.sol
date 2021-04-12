@@ -5,11 +5,11 @@ pragma solidity ^0.8.0;
 import "./CustomERC20.sol";
 
 abstract contract checkResultInterface {
-    function checkResult() external view virtual returns (int256);
+    function checkResult(uint ticketId) external view virtual returns (int256);
 }
 
 abstract contract checkTicketBuyInterface {
-    function checkTicketBuy() external view virtual returns (bool);
+    function checkTicketBuy(uint roundId) external view virtual returns (bool);
 }
 
 contract BoNhaCai is CustomERC20 {
@@ -42,7 +42,9 @@ contract BoNhaCai is CustomERC20 {
         uint256 _endTime,
         uint256 _balance
     ) external {
-        Round memory newRound = Round(_endTime, _resultContract, new uint256[](0));
+        Round memory newRound;
+        newRound.endTime = _endTime;
+        newRound.resultContract = _resultContract;
         rounds.push(newRound);
         uint roundId = rounds.length-1;
         _roundOwners[roundId] = msg.sender;
@@ -54,7 +56,8 @@ contract BoNhaCai is CustomERC20 {
         uint256 _price,
         uint256 _data
     ) external {
-
+        require(_roundExists(_roundId), "Operator query for nonexistent round");
+        require(checkTicketBuyInterface(rounds[_roundId].resultContract).checkTicketBuy(_roundId));
         _transferToRound(msg.sender, _roundId, _price);
         Ticket memory newTicket = Ticket(_roundId, _price, false, _data);
         tickets.push(newTicket);
@@ -95,6 +98,10 @@ contract BoNhaCai is CustomERC20 {
         );
         _balanceOfRounds[_roundId] = senderBalance - _amount;
         _balances[_recipient] += _amount;
+    }
+
+    function withDrawTicket (uint ticketId) external{
+        
     }
 
     function _roundExists(uint256 _roundId) internal view returns (bool) {
