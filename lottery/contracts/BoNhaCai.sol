@@ -36,10 +36,18 @@ contract BoNhaCai{
     uint256 public totalSupply;
 
     event Transfer(address indexed _from, address indexed _to, uint256 _value);
+    event NewRound(address owner, uint256 balance, uint256 endTime);
 
     constructor (uint256 _initialSupply){
         balanceOf[msg.sender] = _initialSupply;
         totalSupply = _initialSupply;
+    }
+
+    function createRound(uint _balance, uint256 _endTime, address _resultContract) public {
+        
+        Round memory newRound = Round(msg.sender,_balance,_endTime, _resultContract, new uint[](0));
+        rounds.push(newRound);
+        emit NewRound(msg.sender, _balance, _endTime);
     }
 
     function transfer(address _to, uint256 _value)
@@ -56,7 +64,7 @@ contract BoNhaCai{
         return true;
     }
 
-    function withDraw(uint _ticketId) public{
+    function withDraw(uint _ticketId) view public{
         uint roundId = tickets[_ticketId].roundId;
         require(rounds[roundId].endTime < block.timestamp + 5 minutes);
         require(tickets[_ticketId].buyer==msg.sender);
@@ -64,7 +72,8 @@ contract BoNhaCai{
         checkResultInterface resultContract = checkResultInterface(rounds[roundId].resultContract);
         int winPrice = resultContract.checkResult();
         require(winPrice > 0);
-
     }
+
+    
 
 }
