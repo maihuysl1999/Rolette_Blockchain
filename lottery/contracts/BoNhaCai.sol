@@ -1,79 +1,114 @@
+// SPDX-License-Identifier: MIT
+
 pragma solidity ^0.8.0;
 
+import "./CustomERC20.sol";
+
 abstract contract checkResultInterface {
-    function checkResult() external view virtual returns(int) ;
+    function checkResult(uint ticketId) external view virtual returns (int256);
 }
 
 abstract contract checkTicketBuyInterface {
-    function checkTicketBuy() external view virtual returns(bool) ;
+    function checkTicketBuy(uint roundId) external view virtual returns (bool);
 }
 
-contract BoNhaCai{
+contract BoNhaCai is CustomERC20 {
+    constructor() CustomERC20("Chip", "CHI") {}
+
     struct Ticket {
-        address buyer;
         uint256 value;
         uint256 ticketPrice;
         bool payed;
-        uint roundId;
+        uint256 roundId;
     }
 
     struct Round {
-        address owner;
-        uint256 balance;
         uint256 endTime;
         address resultContract;
-        uint[] ticketIds;
+        uint256[] ticketIds;
     }
 
     Ticket[] public tickets;
     Round[] public rounds;
-    
-    mapping(uint256 => uint256) public balanceOfRound;
-    mapping(address => uint256) public balanceOf;
 
-    string public name = "DApp Token";
-    string public symbol = "DAPP";
-    uint256 public totalSupply;
+    mapping(uint256 => uint256) private _balanceOfRounds;
 
-    event Transfer(address indexed _from, address indexed _to, uint256 _value);
-    event NewRound(address owner, uint256 balance, uint256 endTime);
+    mapping(uint256 => address) private _roundOwners;
 
-    constructor (uint256 _initialSupply){
-        balanceOf[msg.sender] = _initialSupply;
-        totalSupply = _initialSupply;
-    }
+    mapping(uint256 => address) private _ticketOwners;
 
-    function createRound(uint _balance, uint256 _endTime, address _resultContract) public {
-        
-        Round memory newRound = Round(msg.sender,_balance,_endTime, _resultContract, new uint[](0));
+    function createRound(
+        address _resultContract,
+        uint256 _endTime,
+        uint256 _balance
+    ) external {
+        Round memory newRound;
+        newRound.endTime = _endTime;
+        newRound.resultContract = _resultContract;
         rounds.push(newRound);
-        emit NewRound(msg.sender, _balance, _endTime);
+        uint roundId = rounds.length-1;
+        _roundOwners[roundId] = msg.sender;
+        _transferToRound(msg.sender, roundId, _balance);
     }
 
-    function transfer(address _to, uint256 _value)
-        public
-        returns (bool success)
-    {
-        require(balanceOf[msg.sender] >= _value);
-
-        balanceOf[msg.sender] -= _value;
-        balanceOf[_to] += _value;
-
-        emit Transfer(msg.sender, _to, _value);
-
-        return true;
+    function buyTicket(
+        uint256 _roundId,
+        uint256 _price,
+        uint256 _data
+    ) external {
+        require(_roundExists(_roundId), "Operator query for nonexistent round");
+        require(checkTicketBuyInterface(rounds[_roundId].resultContract).checkTicketBuy(_roundId));
+        _transferToRound(msg.sender, _roundId, _price);
+        Ticket memory newTicket = Ticket(_roundId, _price, false, _data);
+        tickets.push(newTicket);
+        uint ticketId = tickets.length - 1;
+        rounds[_roundId].ticketIds.push(ticketId);
+        _ticketOwners[ticketId] = msg.sender;
     }
 
-    function withDraw(uint _ticketId) view public{
-        uint roundId = tickets[_ticketId].roundId;
-        require(rounds[roundId].endTime < block.timestamp + 5 minutes);
-        require(tickets[_ticketId].buyer==msg.sender);
-        require(!tickets[_ticketId].payed);
-        checkResultInterface resultContract = checkResultInterface(rounds[roundId].resultContract);
-        int winPrice = resultContract.checkResult();
-        require(winPrice > 0);
+    function _transferToRound(
+        address _sender,
+        uint256 _roundId,
+        uint256 _amount
+    ) internal {
+        require(_sender != address(0), "ERC20: transfer from the zero address");
+        require(_roundExists(_roundId), "Operator query for nonexistent round");
+
+        uint256 senderBalance = _balances[_sender];
+        require(senderBalance >= _amount, "ERC20: transfer amount exceeds balance");
+        _balances[_sender] = senderBalance - _amount;
+        _balanceOfRounds[_roundId] += _amount;
     }
 
-    
+    function _transferFromRound(
+        address _recipient,
+        uint256 _roundId,
+        uint256 _amount
+    ) internal {
+        require(
+            _recipient != address(0),
+            "ERC20: transfer to the zero address"
+        );
+        require(_roundExists(_roundId), "Operator query for nonexistent round");
 
+        uint256 senderBalance = _balanceOfRounds[_roundId];
+        require(
+            senderBalance >= _amount,
+            "ERC20: transfer amount exceeds balance"
+        );
+        _balanceOfRounds[_roundId] = senderBalance - _amount;
+        _balances[_recipient] += _amount;
+    }
+
+    function withDrawTicket (uint ticketId) external{
+        
+    }
+
+    function _roundExists(uint256 _roundId) internal view returns (bool) {
+        return _roundOwners[_roundId] != address(0);
+    }
+
+    function _ticketExists(uint256 _roundId) internal view returns (bool) {
+        return _ticketOwners[_roundId] != address(0);
+    }
 }
