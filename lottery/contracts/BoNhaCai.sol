@@ -9,7 +9,11 @@ abstract contract checkResultInterface {
 }
 
 abstract contract checkTicketBuyInterface {
-    function checkTicketBuy(uint roundId) external view virtual returns (bool);
+    function checkTicketBuy(uint roundId, uint _data) external view virtual returns (bool);
+}
+
+abstract contract checkRoundCreateInterface {
+    function checkRoundCreate(uint _data, uint _endtime) external view virtual returns (bool);
 }
 
 contract BoNhaCai is CustomERC20 {
@@ -21,13 +25,14 @@ contract BoNhaCai is CustomERC20 {
     }
 
     struct Ticket {
-        uint256 value;
+        uint256 data;
         uint256 ticketPrice;
         bool payed;
         uint256 roundId;
     }
 
     struct Round {
+        uint256 data;
         uint256 endTime;
         address resultContract;
         uint256[] ticketIds;
@@ -54,13 +59,16 @@ contract BoNhaCai is CustomERC20 {
     }
 
     function createRound(
+        uint _data,
         address _resultContract,
         uint256 _endTime,
         uint256 _balance
     ) external {
+        require(checkRoundCreateInterface(_resultContract).checkRoundCreate(_data, _endTime));
         Round memory newRound;
         newRound.endTime = _endTime;
         newRound.resultContract = _resultContract;
+        newRound.data = _data;
         rounds.push(newRound);
         uint roundId = rounds.length-1;
         _roundOwners[roundId] = msg.sender;
@@ -74,7 +82,7 @@ contract BoNhaCai is CustomERC20 {
         uint256 _data
     ) external {
         require(_roundExists(_roundId), "Operator query for nonexistent round");
-        // require(checkTicketBuyInterface(rounds[_roundId].resultContract).checkTicketBuy(_roundId));
+        require(checkTicketBuyInterface(rounds[_roundId].resultContract).checkTicketBuy(_roundId, _data));
         _transferToRound(msg.sender, _roundId, _price);
         Ticket memory newTicket = Ticket(_roundId, _price, false, _data);
         tickets.push(newTicket);
@@ -132,6 +140,44 @@ contract BoNhaCai is CustomERC20 {
     function buyToken() public payable{
         require(msg.value >= token_price);
         _balances[msg.sender] += (msg.value/token_price);
+    }
+
+    function balanceOfRound(uint roundId) public view returns(uint256){
+        return _balanceOfRounds[roundId];
+    }
+
+    function ticketToOwner(uint ticketId) public view returns(address) {
+        return _ticketOwners[ticketId];
+    }
+
+    function ownerToTickets() public view returns(uint256[] memory){
+        uint i = 0;
+        uint j = 0;
+        uint256[] memory ticketIds = new uint256[](tickets.length);
+        for(i;i<tickets.length;i++){
+            if(_ticketOwners[i]==msg.sender){
+                ticketIds[j] = i;
+                j++;
+            }
+        }
+        return ticketIds;
+    }
+
+    function roundToOwner(uint roundId) public view returns(address){
+        return _roundOwners[roundId];
+    }
+
+    function ownerToRounds() public view returns(uint256[] memory){
+        uint i = 0;
+        uint j = 0;
+        uint256[] memory roundIds = new uint256[](rounds.length);
+        for(i;i<rounds.length;i++){
+            if(_roundOwners[i]==msg.sender){
+                roundIds[j] = i;
+                j++;
+            }
+        }
+        return roundIds;
     }
 
     fallback () external payable{
