@@ -77,7 +77,7 @@ contract BoNhaCai is CustomERC20, ReentrancyGuard{
         address _resultContract,
         uint256 _endTime,
         uint256 _balance
-    ) external {
+    ) external returns (uint256){
         require(checkRoundCreateInterface(_resultContract).checkRoundCreate(_data, _endTime));
         Round memory newRound;
         newRound.endTime = _endTime;
@@ -87,14 +87,15 @@ contract BoNhaCai is CustomERC20, ReentrancyGuard{
         uint roundId = rounds.length-1;
         _roundOwners[roundId] = msg.sender;
         _transferToRound(msg.sender, roundId, _balance);
-        emit NewRound(msg.sender, _resultContract, _endTime, _balance);
+        //emit NewRound(msg.sender, _resultContract, _endTime, _balance);
+        return roundId;
     }
 
     function buyTicket(   
         uint256 _data,
         uint256 _price,
         uint256 _roundId
-    ) external {
+    ) external returns (uint256){
         require(_roundExists(_roundId), "Operator query for nonexistent round");
         require(checkTicketBuyInterface(rounds[_roundId].resultContract).checkTicketBuy(_roundId, _data));
         _transferToRound(msg.sender, _roundId, _price);
@@ -103,6 +104,7 @@ contract BoNhaCai is CustomERC20, ReentrancyGuard{
         uint ticketId = tickets.length - 1;
         rounds[_roundId].ticketIds.push(ticketId);
         _ticketOwners[ticketId] = msg.sender;
+        return ticketId;
     }
 
     function _transferToRound(
@@ -207,12 +209,16 @@ contract BoNhaCai is CustomERC20, ReentrancyGuard{
     function ownerToTickets() public view returns(uint256[] memory){
         uint i = 0;
         uint j = 0;
-        uint256[] memory ticketIds = new uint256[](tickets.length);
+        uint256[] memory tempTicketIds = new uint256[](tickets.length);
         for(i;i<tickets.length;i++){
             if(_ticketOwners[i]==msg.sender){
-                ticketIds[j] = i;
+                tempTicketIds[j] = i;
                 j++;
             }
+        }
+        uint256[] memory ticketIds = new uint256[](j);
+        for(i=0;i<j;i++){
+            ticketIds[i] = tempTicketIds[i];
         }
         return ticketIds;
     }
@@ -238,8 +244,23 @@ contract BoNhaCai is CustomERC20, ReentrancyGuard{
         return ticketIds;
     }
 
-    function roundToWinTickets() public view returns (uint256[] memory){
-
+    function roundToWinTickets(uint _roundId) public view returns (uint256[] memory){
+        uint i = 0;
+        uint j = 0;
+        uint256[] memory tempTicketIds = new uint256[](rounds[_roundId].ticketIds.length);
+        for(i;i<rounds[_roundId].ticketIds.length;i++){
+            if(!tickets[rounds[_roundId].ticketIds[i]].used){
+                if(ticketWinChip(rounds[_roundId].ticketIds[i])>0){
+                    tempTicketIds[j] = i;
+                    j++;
+                }
+            }
+        }
+        uint256[] memory ticketIds = new uint256[](j);
+        for(i=0;i<j;i++){
+            ticketIds[i] = tempTicketIds[i];
+        }
+        return ticketIds;
     }
 
     function ticketWinChip(uint256 ticketId) public view returns (uint256){
@@ -256,12 +277,16 @@ contract BoNhaCai is CustomERC20, ReentrancyGuard{
     function ownerToRounds() public view returns(uint256[] memory){
         uint i = 0;
         uint j = 0;
-        uint256[] memory roundIds = new uint256[](rounds.length);
+        uint256[] memory tempRoundIds = new uint256[](rounds.length);
         for(i;i<rounds.length;i++){
             if(_roundOwners[i]==msg.sender){
-                roundIds[j] = i;
+                tempRoundIds[j] = i;
                 j++;
             }
+        }
+        uint256[] memory roundIds = new uint256[](j);
+        for(i=0;i<j;i++){
+            roundIds[i] = tempRoundIds[i];
         }
         return roundIds;
     }

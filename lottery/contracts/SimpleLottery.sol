@@ -25,7 +25,7 @@ contract SimpleLottery {
         address resultContract; 
         (data,endTime,resultContract,ticketIds) = boNhaCai.getRound(roundId);
 
-        require(block.timestamp > endTime + 1 minutes);
+        require(block.timestamp > endTime);
 
         bytes32 rand = keccak256(abi.encode(blockhash(block.number-1)));
         winners[roundId] = uint(rand) % ticketIds.length + 1;
@@ -51,7 +51,6 @@ contract SimpleLottery {
         uint256 endTime;
         address resultContract; 
         (data,endTime,resultContract,ticketIds) = boNhaCai.getRound(roundId);
-        require(BoNhaCaiAddr == resultContract);
         require(endTime > block.timestamp);
         require(winners[roundId]==0);
         return true;
