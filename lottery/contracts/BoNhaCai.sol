@@ -13,8 +13,11 @@ abstract contract checkTicketBuyInterface {
 }
 
 contract BoNhaCai is CustomERC20 {
-    uint public constant TOKEN_PRICE = 1e16; // 0.01 ether
-    constructor() CustomERC20("Chip", "CHI") {
+    uint256 public token_price;
+    address private admin; 
+    constructor(uint256 _price) CustomERC20("Chip", "CHI") {
+        admin = msg.sender;
+        token_price = _price;
     }
 
     struct Ticket {
@@ -41,6 +44,15 @@ contract BoNhaCai is CustomERC20 {
 
     event NewRound(address owner, address resultContract, uint256 endTime, uint balance);
 
+    function getAdmin() view public returns(address){
+        return admin;
+    }
+
+    function setPriceToken(uint256 _newPrice) public {
+        require(msg.sender == admin);
+        token_price = _newPrice;
+    }
+
     function createRound(
         address _resultContract,
         uint256 _endTime,
@@ -62,7 +74,7 @@ contract BoNhaCai is CustomERC20 {
         uint256 _data
     ) external {
         require(_roundExists(_roundId), "Operator query for nonexistent round");
-        require(checkTicketBuyInterface(rounds[_roundId].resultContract).checkTicketBuy(_roundId));
+        // require(checkTicketBuyInterface(rounds[_roundId].resultContract).checkTicketBuy(_roundId));
         _transferToRound(msg.sender, _roundId, _price);
         Ticket memory newTicket = Ticket(_roundId, _price, false, _data);
         tickets.push(newTicket);
@@ -118,8 +130,8 @@ contract BoNhaCai is CustomERC20 {
     }
 
     function buyToken() public payable{
-        require(msg.value >= TOKEN_PRICE);
-        _balances[msg.sender] += (msg.value/TOKEN_PRICE);
+        require(msg.value >= token_price);
+        _balances[msg.sender] += (msg.value/token_price);
     }
 
     fallback () external payable{
