@@ -21,7 +21,8 @@ abstract contract checkRoundCreateInterface {
 
 contract BoNhaCai is CustomERC20, ReentrancyGuard{
     uint256 public token_price;
-    address private admin; 
+    address private admin;
+    
     constructor(uint256 _price) CustomERC20("Chip", "CHI") {
         admin = msg.sender;
         token_price = _price;
