@@ -144,7 +144,7 @@ contract BoNhaCai is CustomERC20, ReentrancyGuard{
         require(!tickets[ticketId].used);
         uint256 roundId = tickets[ticketId].roundId;
         uint256 winChip;
-        winChip = checkResultInterface(rounds[roundId].resultContract).checkResult(ticketId);
+        winChip = ticketWinChip(ticketId);
         if(winChip == 0){
             _disableTicket(ticketId);
         }
@@ -215,6 +215,38 @@ contract BoNhaCai is CustomERC20, ReentrancyGuard{
             }
         }
         return ticketIds;
+    }
+
+    function ownerToWinTickets() public view returns (uint256[] memory){
+        uint i = 0;
+        uint j = 0;
+        uint256[] memory tempTicketIds = new uint256[](tickets.length);
+        for(i;i<tickets.length;i++){
+            if(_ticketOwners[i]==msg.sender){
+                if(!tickets[i].used){
+                    if(ticketWinChip(i)>0){
+                        tempTicketIds[j] = i;
+                        j++;
+                    }
+                }
+            }
+        }
+        uint256[] memory ticketIds = new uint256[](j);
+        for(i=0;i<j;i++){
+            ticketIds[i] = tempTicketIds[i];
+        }
+        return ticketIds;
+    }
+
+    function roundToWinTickets() public view returns (uint256[] memory){
+
+    }
+
+    function ticketWinChip(uint256 ticketId) public view returns (uint256){
+        uint256 roundId = tickets[ticketId].roundId;
+        uint256 winChip;
+        winChip = checkResultInterface(rounds[roundId].resultContract).checkResult(ticketId);
+        return winChip;    
     }
 
     function roundToOwner(uint roundId) public view returns(address){

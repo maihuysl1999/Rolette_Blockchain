@@ -51,6 +51,7 @@ contract SimpleLottery {
         uint256 endTime;
         address resultContract; 
         (data,endTime,resultContract,ticketIds) = boNhaCai.getRound(roundId);
+        require(BoNhaCaiAddr == resultContract);
         require(endTime > block.timestamp);
         require(winners[roundId]==0);
         return true;
