@@ -3,9 +3,12 @@
 pragma solidity ^0.8.0;
 
 import "./CustomERC20.sol";
+import "../node_modules/@openzeppelin/contracts/security/ReentrancyGuard.sol";
+
+
 
 abstract contract checkResultInterface {
-    function checkResult(uint ticketId) external view virtual returns (int256);
+    function checkResult(uint ticketId) external view virtual returns (uint256);
 }
 
 abstract contract checkTicketBuyInterface {
@@ -16,7 +19,7 @@ abstract contract checkRoundCreateInterface {
     function checkRoundCreate(uint _data, uint _endtime) external view virtual returns (bool);
 }
 
-contract BoNhaCai is CustomERC20 {
+contract BoNhaCai is CustomERC20, ReentrancyGuard{
     uint256 public token_price;
     address private admin; 
     constructor(uint256 _price) CustomERC20("Chip", "CHI") {
@@ -27,8 +30,8 @@ contract BoNhaCai is CustomERC20 {
     struct Ticket {
         uint256 data;
         uint256 ticketPrice;
-        bool payed;
         uint256 roundId;
+        bool used;
     }
 
     struct Round {
@@ -76,15 +79,15 @@ contract BoNhaCai is CustomERC20 {
         emit NewRound(msg.sender, _resultContract, _endTime, _balance);
     }
 
-    function buyTicket(
-        uint256 _roundId,
+    function buyTicket(   
+        uint256 _data,
         uint256 _price,
-        uint256 _data
+        uint256 _roundId
     ) external {
         require(_roundExists(_roundId), "Operator query for nonexistent round");
         require(checkTicketBuyInterface(rounds[_roundId].resultContract).checkTicketBuy(_roundId, _data));
         _transferToRound(msg.sender, _roundId, _price);
-        Ticket memory newTicket = Ticket(_roundId, _price, false, _data);
+        Ticket memory newTicket = Ticket(_data, _price, _roundId, false);
         tickets.push(newTicket);
         uint ticketId = tickets.length - 1;
         rounds[_roundId].ticketIds.push(ticketId);
@@ -125,16 +128,56 @@ contract BoNhaCai is CustomERC20 {
         _balances[_recipient] += _amount;
     }
 
-    function withDrawTicket (uint ticketId) external{
-        
+    function withDrawTicket (uint ticketId) external nonReentrant{
+        require(_ticketOwners[ticketId]==msg.sender);
+        require(!tickets[ticketId].used);
+        uint256 roundId = tickets[ticketId].roundId;
+        uint256 winChip;
+        winChip = checkResultInterface(rounds[roundId].resultContract).checkResult(ticketId);
+        if(winChip == 0){
+            _disableTicket(ticketId);
+        }
+        else{
+            uint256 roundBalance = _balanceOfRounds[roundId];
+            if(winChip >= roundBalance){
+                _transferFromRound(msg.sender, roundId, winChip);
+            }
+            else{
+                if(roundBalance!=0){
+                    _transferFromRound(msg.sender, roundId, roundBalance);
+                }              
+                _approve(_roundOwners[roundId], msg.sender, roundBalance-winChip);
+            }
+            _disableTicket(ticketId);
+        }
+    }
+
+    function sumOfWinnerChipOfRound(uint roundId) view public returns (uint256){
+        uint sumOfWinChip = 0;
+        uint i = 0;
+        address resultContract = rounds[roundId].resultContract;
+        for(i;i<rounds[roundId].ticketIds.length;i++){
+            if(!tickets[rounds[roundId].ticketIds[i]].used)
+                sumOfWinChip += checkResultInterface(resultContract).checkResult(rounds[roundId].ticketIds[i]);
+        }
+        return sumOfWinChip;
+    }
+
+    function withDrawRound(uint256 roundId) external nonReentrant{
+        require(_roundOwners[roundId] == msg.sender);
+        uint256 balance = _balanceOfRounds[roundId];
+        uint256 sumOfWinChip = sumOfWinnerChipOfRound(roundId);
+        if(balance > sumOfWinChip){
+            _transferFromRound(msg.sender, roundId, balance - sumOfWinChip);
+        }
     }
 
     function _roundExists(uint256 _roundId) internal view returns (bool) {
         return _roundOwners[_roundId] != address(0);
     }
 
-    function _ticketExists(uint256 _roundId) internal view returns (bool) {
-        return _ticketOwners[_roundId] != address(0);
+    function _ticketExists(uint256 _ticketId) internal view returns (bool) {
+        return _ticketOwners[_ticketId] != address(0);
     }
 
     function buyToken() public payable{
@@ -178,6 +221,10 @@ contract BoNhaCai is CustomERC20 {
             }
         }
         return roundIds;
+    }
+
+    function _disableTicket(uint256 ticketId) private {
+        tickets[ticketId].used = true;
     }
 
     fallback () external payable{
