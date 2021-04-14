@@ -8,15 +8,15 @@ import "../node_modules/@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 
 abstract contract checkResultInterface {
-    function checkResult(uint ticketId) external view virtual returns (uint256);
+    function checkResult(uint ticketId) public view virtual returns (uint256);
 }
 
 abstract contract checkTicketBuyInterface {
-    function checkTicketBuy(uint roundId, bytes32 _data) external view virtual returns (bool);
+    function checkTicketBuy(uint roundId, uint256 _data) public view virtual returns (bool);
 }
 
 abstract contract checkRoundCreateInterface {
-    function checkRoundCreate(bytes32 _data, uint _endtime) external view virtual returns (bool);
+    function checkRoundCreate(uint256 _data, uint _endtime) public view virtual returns (bool);
 }
 
 contract BoNhaCai is CustomERC20, ReentrancyGuard{
@@ -29,14 +29,14 @@ contract BoNhaCai is CustomERC20, ReentrancyGuard{
     }
 
     struct Ticket {
-        bytes32 data;
+        uint256 data;
         uint256 ticketPrice;
         uint256 roundId;
         bool used;
     }
 
     struct Round {
-        bytes32 data;
+        uint256 data;
         uint256 endTime;
         address resultContract;
         uint256[] ticketIds;
@@ -62,8 +62,18 @@ contract BoNhaCai is CustomERC20, ReentrancyGuard{
         token_price = _newPrice;
     }
 
+    function getRound(uint256 _roundId) public view returns(uint256 , uint256 , address , uint256[] memory) {    
+        require(_roundExists(_roundId));    
+        return (rounds[_roundId].data, rounds[_roundId].endTime, rounds[_roundId].resultContract, rounds[_roundId].ticketIds);
+    } 
+
+    function getTicket(uint256 _ticketId) public view returns(uint256 , uint256 , uint256 , bool){
+        require(_ticketExists(_ticketId));
+        return (tickets[_ticketId].data, tickets[_ticketId].ticketPrice, tickets[_ticketId].roundId, tickets[_ticketId].used);
+    }
+
     function createRound(
-        bytes32 _data,
+        uint256 _data,
         address _resultContract,
         uint256 _endTime,
         uint256 _balance
@@ -81,7 +91,7 @@ contract BoNhaCai is CustomERC20, ReentrancyGuard{
     }
 
     function buyTicket(   
-        bytes32 _data,
+        uint256 _data,
         uint256 _price,
         uint256 _roundId
     ) external {
