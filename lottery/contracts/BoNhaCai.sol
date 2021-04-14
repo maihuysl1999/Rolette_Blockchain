@@ -12,11 +12,11 @@ abstract contract checkResultInterface {
 }
 
 abstract contract checkTicketBuyInterface {
-    function checkTicketBuy(uint roundId, uint _data) external view virtual returns (bool);
+    function checkTicketBuy(uint roundId, bytes32 _data) external view virtual returns (bool);
 }
 
 abstract contract checkRoundCreateInterface {
-    function checkRoundCreate(uint _data, uint _endtime) external view virtual returns (bool);
+    function checkRoundCreate(bytes32 _data, uint _endtime) external view virtual returns (bool);
 }
 
 contract BoNhaCai is CustomERC20, ReentrancyGuard{
@@ -28,14 +28,14 @@ contract BoNhaCai is CustomERC20, ReentrancyGuard{
     }
 
     struct Ticket {
-        uint256 data;
+        bytes32 data;
         uint256 ticketPrice;
         uint256 roundId;
         bool used;
     }
 
     struct Round {
-        uint256 data;
+        bytes32 data;
         uint256 endTime;
         address resultContract;
         uint256[] ticketIds;
@@ -62,7 +62,7 @@ contract BoNhaCai is CustomERC20, ReentrancyGuard{
     }
 
     function createRound(
-        uint _data,
+        bytes32 _data,
         address _resultContract,
         uint256 _endTime,
         uint256 _balance
@@ -80,7 +80,7 @@ contract BoNhaCai is CustomERC20, ReentrancyGuard{
     }
 
     function buyTicket(   
-        uint256 _data,
+        bytes32 _data,
         uint256 _price,
         uint256 _roundId
     ) external {
